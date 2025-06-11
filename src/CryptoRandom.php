@@ -27,7 +27,7 @@ class CryptoRandom implements RandomInterface
 
         try {
             return random_bytes($length);
-        } catch (\Exception $e) {
+        } catch  (\Throwable $e) {
             throw new RandomException('随机字节生成失败: ' . $e->getMessage(), 0, $e);
         }
     }
@@ -48,7 +48,7 @@ class CryptoRandom implements RandomInterface
 
         try {
             return random_int($min, $max);
-        } catch (\Exception $e) {
+        } catch  (\Throwable $e) {
             throw new RandomException('随机整数生成失败: ' . $e->getMessage(), 0, $e);
         }
     }
