@@ -38,11 +38,11 @@ class RandomInterfaceTest extends TestCase
         $parameter = $method->getParameters()[0];
         $this->assertEquals('length', $parameter->getName());
         $this->assertTrue($parameter->hasType());
-        $this->assertEquals('int', $parameter->getType()->getName());
+        $this->assertEquals('int', (string) $parameter->getType());
         
         // 检查返回类型
         $this->assertTrue($method->hasReturnType());
-        $this->assertEquals('string', $method->getReturnType()->getName());
+        $this->assertEquals('string', (string) $method->getReturnType());
     }
 
     public function test_getRandomInt_methodSignature(): void
@@ -60,28 +60,17 @@ class RandomInterfaceTest extends TestCase
         $parameters = $method->getParameters();
         $this->assertEquals('min', $parameters[0]->getName());
         $this->assertTrue($parameters[0]->hasType());
-        $this->assertEquals('int', $parameters[0]->getType()->getName());
+        $this->assertEquals('int', (string) $parameters[0]->getType());
         
         $this->assertEquals('max', $parameters[1]->getName());
         $this->assertTrue($parameters[1]->hasType());
-        $this->assertEquals('int', $parameters[1]->getType()->getName());
+        $this->assertEquals('int', (string) $parameters[1]->getType());
         
         // 检查返回类型
         $this->assertTrue($method->hasReturnType());
-        $this->assertEquals('int', $method->getReturnType()->getName());
+        $this->assertEquals('int', (string) $method->getReturnType());
     }
 
-    public function test_getRandomBytes_returnsString(): void
-    {
-        $result = $this->random->getRandomBytes(10);
-        $this->assertIsString($result);
-    }
-
-    public function test_getRandomInt_returnsInt(): void
-    {
-        $result = $this->random->getRandomInt(1, 10);
-        $this->assertIsInt($result);
-    }
 
     public function test_getRandomBytes_contractCompliance(): void
     {
@@ -91,7 +80,6 @@ class RandomInterfaceTest extends TestCase
         foreach ($lengths as $length) {
             $bytes = $this->random->getRandomBytes($length);
             $this->assertEquals($length, strlen($bytes), "应该生成 $length 字节的随机数据");
-            $this->assertIsString($bytes, "应该返回字符串类型");
         }
     }
 
@@ -108,7 +96,6 @@ class RandomInterfaceTest extends TestCase
         
         foreach ($ranges as [$min, $max]) {
             $result = $this->random->getRandomInt($min, $max);
-            $this->assertIsInt($result, "应该返回整数类型");
             $this->assertGreaterThanOrEqual($min, $result, "结果应该大于等于最小值 $min");
             $this->assertLessThanOrEqual($max, $result, "结果应该小于等于最大值 $max");
         }
@@ -153,7 +140,8 @@ class RandomInterfaceTest extends TestCase
         $bytes = $randomInterface->getRandomBytes(10);
         $int = $randomInterface->getRandomInt(1, 10);
         
-        $this->assertIsString($bytes);
-        $this->assertIsInt($int);
+        $this->assertEquals(10, strlen($bytes));
+        $this->assertGreaterThanOrEqual(1, $int);
+        $this->assertLessThanOrEqual(10, $int);
     }
 } 

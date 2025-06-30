@@ -26,7 +26,6 @@ class CryptoRandomTest extends TestCase
         foreach ($lengths as $length) {
             $bytes = $this->random->getRandomBytes($length);
             $this->assertEquals($length, strlen($bytes));
-            $this->assertIsString($bytes);
             
             // 验证两次生成的随机字节不相同
             $anotherBytes = $this->random->getRandomBytes($length);
@@ -63,7 +62,6 @@ class CryptoRandomTest extends TestCase
         
         foreach ($ranges as [$min, $max]) {
             $int = $this->random->getRandomInt($min, $max);
-            $this->assertIsInt($int);
             $this->assertGreaterThanOrEqual($min, $int);
             $this->assertLessThanOrEqual($max, $int);
         }

@@ -21,7 +21,6 @@ class CryptoRandomBoundaryTest extends TestCase
     {
         $bytes = $this->random->getRandomBytes(1);
         $this->assertEquals(1, strlen($bytes));
-        $this->assertIsString($bytes);
     }
 
     public function test_getRandomBytes_withLargeLength(): void
@@ -41,7 +40,6 @@ class CryptoRandomBoundaryTest extends TestCase
     public function test_getRandomInt_withMinMaxIntBoundaries(): void
     {
         $result = $this->random->getRandomInt(PHP_INT_MIN, PHP_INT_MAX);
-        $this->assertIsInt($result);
         $this->assertGreaterThanOrEqual(PHP_INT_MIN, $result);
         $this->assertLessThanOrEqual(PHP_INT_MAX, $result);
     }
