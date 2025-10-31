@@ -16,7 +16,9 @@ class CryptoRandom implements RandomInterface
      * 生成指定长度的随机字节
      *
      * @param int $length 需要生成的随机字节数
+     *
      * @return string 随机字节
+     *
      * @throws RandomException 如果随机数生成失败
      */
     public function getRandomBytes(int $length): string
@@ -37,7 +39,9 @@ class CryptoRandom implements RandomInterface
      *
      * @param int $min 最小值（含）
      * @param int $max 最大值（含）
+     *
      * @return int 随机整数
+     *
      * @throws RandomException 如果随机数生成失败或参数无效
      */
     public function getRandomInt(int $min, int $max): int

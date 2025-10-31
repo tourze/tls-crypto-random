@@ -13,6 +13,7 @@ interface RandomInterface
      * 生成指定长度的随机字节
      *
      * @param int $length 需要生成的随机字节数
+     *
      * @return string 随机字节
      */
     public function getRandomBytes(int $length): string;
@@ -22,7 +23,8 @@ interface RandomInterface
      *
      * @param int $min 最小值（含）
      * @param int $max 最大值（含）
+     *
      * @return int 随机整数
      */
     public function getRandomInt(int $min, int $max): int;
-} 
+}

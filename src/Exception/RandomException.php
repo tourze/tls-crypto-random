@@ -9,4 +9,4 @@ namespace Tourze\TLSCryptoRandom\Exception;
  */
 class RandomException extends CryptoException
 {
-} 
+}

@@ -2,20 +2,23 @@
 
 declare(strict_types=1);
 
-namespace Tourze\TLSCryptoRandom\Tests\Unit\Exception;
+namespace Tourze\TLSCryptoRandom\Tests\Exception;
 
-use PHPUnit\Framework\TestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
+use Tourze\PHPUnitBase\AbstractExceptionTestCase;
 use Tourze\TLSCryptoRandom\Exception\CryptoException;
 
 /**
- * @covers \Tourze\TLSCryptoRandom\Exception\CryptoException
+ * @internal
  */
-final class CryptoExceptionTest extends TestCase
+#[CoversClass(CryptoException::class)]
+final class CryptoExceptionTest extends AbstractExceptionTestCase
 {
     public function testCanBeCreated(): void
     {
-        $exception = new CryptoException('Test message');
-        
+        // 创建匿名具体子类用于测试抽象基类
+        $exception = new class('Test message') extends CryptoException {};
+
         $this->assertInstanceOf(CryptoException::class, $exception);
         $this->assertInstanceOf(\Exception::class, $exception);
         $this->assertEquals('Test message', $exception->getMessage());
@@ -24,8 +27,9 @@ final class CryptoExceptionTest extends TestCase
     public function testCanBeCreatedWithCodeAndPrevious(): void
     {
         $previous = new \Exception('Previous exception');
-        $exception = new CryptoException('Test message', 123, $previous);
-        
+        // 创建匿名具体子类用于测试抽象基类
+        $exception = new class('Test message', 123, $previous) extends CryptoException {};
+
         $this->assertEquals('Test message', $exception->getMessage());
         $this->assertEquals(123, $exception->getCode());
         $this->assertSame($previous, $exception->getPrevious());

@@ -2,21 +2,23 @@
 
 declare(strict_types=1);
 
-namespace Tourze\TLSCryptoRandom\Tests\Unit\Exception;
+namespace Tourze\TLSCryptoRandom\Tests\Exception;
 
-use PHPUnit\Framework\TestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
+use Tourze\PHPUnitBase\AbstractExceptionTestCase;
 use Tourze\TLSCryptoRandom\Exception\CryptoException;
 use Tourze\TLSCryptoRandom\Exception\RandomException;
 
 /**
- * @covers \Tourze\TLSCryptoRandom\Exception\RandomException
+ * @internal
  */
-final class RandomExceptionTest extends TestCase
+#[CoversClass(RandomException::class)]
+final class RandomExceptionTest extends AbstractExceptionTestCase
 {
     public function testCanBeCreated(): void
     {
         $exception = new RandomException('Random error');
-        
+
         $this->assertInstanceOf(RandomException::class, $exception);
         $this->assertInstanceOf(CryptoException::class, $exception);
         $this->assertInstanceOf(\Exception::class, $exception);
@@ -27,7 +29,7 @@ final class RandomExceptionTest extends TestCase
     {
         $previous = new \Exception('Previous exception');
         $exception = new RandomException('Random error', 456, $previous);
-        
+
         $this->assertEquals('Random error', $exception->getMessage());
         $this->assertEquals(456, $exception->getCode());
         $this->assertSame($previous, $exception->getPrevious());
@@ -36,7 +38,7 @@ final class RandomExceptionTest extends TestCase
     public function testInheritanceHierarchy(): void
     {
         $exception = new RandomException('Test');
-        
+
         // 验证继承层次结构
         $this->assertInstanceOf(CryptoException::class, $exception);
         $this->assertInstanceOf(\Exception::class, $exception);
